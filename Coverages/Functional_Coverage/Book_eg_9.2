@@ -13,9 +13,8 @@ program automatic test(busifc.TB ifc);
       assert(tr.randomize);  // Create a transaction
       ifc.cb.port <= tr.port; //   and transmit from the virtual interface
       ifc.cb.data <= tr.data; //   onto interface 
-      ck.sample();         
-   // Gather coverage
-      @ifc.cb;             
+      ck.sample();            // Gather coverage
+      @ifc.cb;             //Wait a cycle
     end
   end
  endprogram
