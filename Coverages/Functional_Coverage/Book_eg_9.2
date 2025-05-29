@@ -1,0 +1,26 @@
+program automatic test(busifc.TB ifc);
+  class Transaction;
+    rand bit [31:0] data;
+    rand bit [ 2:0] port;  
+  endclass
+  covergroup CovPort;
+    coverpoint tr.port;    
+  endgroup
+  Transaction tr = new;
+  initial begin
+    CovPort ck = new;      
+    repeat (32) begin      
+      assert(tr.randomize);
+   // Eight port numbers
+   // Measure coverage
+   // Instantiate group
+   // Run a few cycles
+   // Create a transaction
+      ifc.cb.port <= tr.port; //   and transmit
+      ifc.cb.data <= tr.data; //   onto interface 
+      ck.sample();         
+   // Gather coverage
+      @ifc.cb;             
+    end
+  end
+ endprogram
