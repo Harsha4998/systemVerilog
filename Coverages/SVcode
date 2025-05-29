@@ -1,0 +1,37 @@
+module func_coverage;
+  
+  logic [3:0] addr; 
+  logic [2:0] data;
+  logic en;
+  
+  covergroup c_group;
+    
+    option.per_instance=1;
+    
+    cp1: coverpoint addr {bins b1               = {1, 10, 12};
+                          bins b2[]             = {[2:9], 11};
+                          bins zero_to_seven[4] = {[0:7]};}
+    
+    cp2: coverpoint data {bins b1    = {[5:$]};
+                          bins b2[]  = {2, 3, 6};
+                          bins others = default;}
+    
+    cp3: coverpoint en   {bins one = {1};}
+    
+  endgroup
+
+  c_group cg = new();
+  
+  initial 
+    repeat(20)begin
+      
+    #1 addr = $random;
+       data = $random;
+       en   = $random;
+      
+       cg.sample();
+       $display("addr=%0d, data=%0d en=%0d",addr,data,en);
+      
+    end
+  
+endmodule
