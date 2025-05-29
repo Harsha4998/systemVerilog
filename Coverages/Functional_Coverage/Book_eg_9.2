@@ -1,22 +1,17 @@
 program automatic test(busifc.TB ifc);
   class Transaction;
     rand bit [31:0] data;
-    rand bit [ 2:0] port;  
+    rand bit [ 2:0] port;  // Eight port numbers
   endclass
   covergroup CovPort;
-    coverpoint tr.port;    
+    coverpoint tr.port;    // Measure coverage
   endgroup
   Transaction tr = new;
   initial begin
-    CovPort ck = new;      
-    repeat (32) begin      
-      assert(tr.randomize);
-   // Eight port numbers
-   // Measure coverage
-   // Instantiate group
-   // Run a few cycles
-   // Create a transaction
-      ifc.cb.port <= tr.port; //   and transmit
+    CovPort ck = new;      // Instantiate group
+    repeat (32) begin      // Run a few cycles
+      assert(tr.randomize);  // Create a transaction
+      ifc.cb.port <= tr.port; //   and transmit from the virtual interface
       ifc.cb.data <= tr.data; //   onto interface 
       ck.sample();         
    // Gather coverage
