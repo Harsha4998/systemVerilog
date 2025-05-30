@@ -1,0 +1,27 @@
+class evenodd;
+  randc bit [7:0]a[8];
+  constraint a_range { foreach (a[i]){
+    if (i<4){
+      a[i]%4==0;
+      a[i]%2==0;
+      a[i]!=0;}
+      else if(i<9){
+        a[i]%3==0;
+        a[i]%2!=0;}}}
+
+        constraint a_limit{foreach(a[i])
+        {
+          a[i] < 100;}
+                          }
+endclass
+module const_evenodd;
+  evenodd eo;
+  initial begin
+    eo=new();
+    
+    repeat(5)begin
+      eo.randomize();
+      $display("a=%p",eo.a);
+    end
+  end
+endmodule
