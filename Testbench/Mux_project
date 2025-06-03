@@ -1,0 +1,200 @@
+//DUT CODE
+module mux2(input a,b,sel,output y);
+  assign y=sel?b:a;
+endmodule
+
+// Transaction
+class transaction;
+  rand bit a;
+  rand bit b;
+  rand bit sel;
+  bit y;
+  
+  function void display(string name);
+    $display("------------------");
+    $display("%s",name);
+    $display("------------------");
+    $display("a=%0d,b=%0d,sel=%0d",a,b,sel);
+    $display("y=%0d",y);
+    $display("------------------");
+  endfunction
+endclass
+/////////////////////////////////////////////////////////////////////
+//Interface
+interface intf();
+  logic a;
+  logic b;
+  logic sel;
+  logic y;
+endinterface
+////////////////////////////////////////////////////////////////////////
+//Generator
+class generator;
+  transaction trans;
+  
+  //virtual intf vif;
+  
+  mailbox gen2driv;
+  
+  function new(mailbox gen2driv);
+    this.gen2driv=gen2driv;
+  endfunction
+  task main();
+    repeat(3) begin
+      trans=new();
+      trans.randomize();
+      trans.display("Generator");
+      gen2driv.put(trans);
+      
+    end
+  endtask
+endclass
+/////////////////////////////////////////////////////////////////////////////
+//Driver
+class driver;
+  virtual intf vif;
+  
+  mailbox gen2driv;
+  
+  function new(virtual intf vif,mailbox gen2driv);
+    this.vif=vif;
+    this.gen2driv=gen2driv;
+  endfunction
+  
+  task main();
+    repeat(3)begin
+      transaction trans;
+      
+      gen2driv.get(trans);
+      vif.a <= trans.a;
+      vif.b <= trans.b;
+      vif.sel <= trans.sel;
+      
+      trans.y = vif.y;
+      trans.display("Driver");
+    end
+  endtask
+endclass
+///////////////////////////////////////////////////////////////////////////////
+//Monitor
+class monitor;
+  virtual intf vif;
+  
+  mailbox mon2scb;
+  
+  function new(virtual intf vif,mailbox mon2scb);
+    this.vif=vif;
+    this.mon2scb=mon2scb;
+  endfunction
+  task main();
+    #3;
+    repeat(3)begin
+      transaction trans;
+      trans=new();
+      trans.a=vif.a;
+      trans.b=vif.b;
+      trans.sel=vif.sel;
+      trans.y=vif.y;
+      mon2scb.put(trans);
+      trans.display("Monitor");
+    end
+  endtask
+endclass
+//////////////////////////////////////////////////////////////////
+//Scoreboard
+class scoreboard;
+  mailbox mon2scb;
+  
+  function new(mailbox mon2scb);
+    this.mon2scb=mon2scb;
+  endfunction
+  task main();
+    transaction trans;
+    logic expected;
+    repeat(3)begin
+      mon2scb.get(trans);
+      expected=(trans.sel) ? (trans.b) : (trans.a);
+      if(trans.y == expected)
+      	$display("Result is as expected");
+      else
+        $display("Wrong Result");
+      trans.display("Scoreboard");
+    end
+  endtask
+endclass
+/////////////////////////////////////////////////////////////////////
+//Enviornment
+`include "transaction.sv"
+`include "generator.sv"
+`include "driver.sv"
+`include "monitor.sv"
+`include "scoreboard.sv"
+
+class enviornment;
+  generator gen;
+  driver driv;
+  monitor mon;
+  scoreboard scb;
+  
+  mailbox m1;
+  mailbox m2;
+  
+  virtual intf vif;
+  
+  function new(virtual intf vif);
+    this.vif=vif;
+    m1=new();
+    m2=new();
+    gen=new(m1);
+    driv=new(vif,m1);
+    mon=new(vif,m2);
+    scb=new(m2);
+  endfunction
+  
+  task test();
+    fork
+      gen.main();
+      driv.main();
+      mon.main();
+      scb.main();
+    join
+  endtask
+  
+  task run();
+    test();
+    $finish();
+  endtask
+  
+endclass
+///////////////////////////////////////////////////////////////
+//Test
+`include "env.sv"
+program test(intf i_intf);
+  enviornment env;
+  initial begin
+    env=new(i_intf);
+    env.run();
+  end
+endprogram
+////////////////////////////////////////////////////////////////////
+//TB_top
+// Code your testbench here
+// or browse Examples
+`include "interface.sv"
+`include "test.sv"
+module mux_tb;
+  wire a,b,sel;
+  reg y;
+  
+  intf i_intf();
+  test t1(i_intf);
+  mux2 m1(.a(a),
+          .b(b),
+          .sel(sel),
+          .y(y));
+  
+  initial begin
+    $dumpfile("dump.vcd");
+    $dumpvars(1);
+  end
+endmodule
