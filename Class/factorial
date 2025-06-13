@@ -1,0 +1,39 @@
+// Code your testbench here
+// or browse Examples
+class factorial;
+  int a;
+  
+  int fact_result;
+  function int facto();
+    int result=1;
+    for(int i=a;i>=1;i--)begin
+      result=i*(result);
+      $display(" Display from function a=%0d,result=%0d",a,result);
+    end
+    return result; ////////////////////////// //to display the result
+  endfunction
+  
+  function void display();
+    fact_result=facto();
+    $display(" Display from module a=%0d,fact_result=%0d",a,fact_result);    
+  endfunction
+  
+endclass
+module test;
+  int fact_result;
+  factorial fact;
+  initial begin
+    fact=new();
+    fact.a=6;
+    fact.display();
+    //fact_result=fact.facto; ////////////////////////// // moved to function display
+    //$display(" Display from module a=%0d,fact_result=%0d",fact.a,fact_result);    
+    fact.a=8;
+    fact.display();
+    //fact_result=fact.facto;
+    //$display(" Display from module a=%0d,fact_result=%0d",fact.a,fact_result);
+    fact.a=4;
+    fact.display();
+    
+  end
+endmodule
