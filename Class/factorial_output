@@ -1,0 +1,50 @@
+VSIMSA: Configuration file changed: `/home/runner/library.cfg'
+ALIB: Library "work" attached.
+work = /home/runner/work/work.lib
+MESSAGE "Unit top modules: test."
+SUCCESS "Compile success 0 Errors 0 Warnings  Analysis time: 0[s]."
+done
+# Aldec, Inc. Riviera-PRO version 2023.04.112.8911 built for Linux64 on May 12, 2023.
+# HDL, SystemC, and Assertions simulator, debugger, and design environment.
+# (c) 1999-2023 Aldec, Inc. All rights reserved.
+# ELBREAD: Elaboration process.
+# ELBREAD: Elaboration time 0.0 [s].
+# KERNEL: Main thread initiated.
+# KERNEL: Kernel process initialization phase.
+# ELAB2: Elaboration final pass...
+# ELAB2: Create instances ...
+# KERNEL: Time resolution set to 1ns.
+# ELAB2: Create instances complete.
+# SLP: Started
+# SLP: Elaboration phase ...
+# SLP: Elaboration phase ... skipped, nothing to simulate in SLP mode : 0.0 [s]
+# SLP: Finished : 0.0 [s]
+# ELAB2: Elaboration final pass complete - time: 0.0 [s].
+# KERNEL: Warning: You are using the Riviera-PRO EDU Edition. The performance of simulation is reduced.
+# KERNEL: Warning: Contact Aldec for available upgrade options - sales@aldec.com.
+# KERNEL: Kernel process initialization done.
+# Allocation: Simulator allocated 4727 kB (elbread=451 elab2=4135 kernel=140 sdf=0)
+# KERNEL: ASDB file was created in location /home/runner/dataset.asdb
+# KERNEL:  Display from function a=6,result=6
+# KERNEL:  Display from function a=6,result=30
+# KERNEL:  Display from function a=6,result=120
+# KERNEL:  Display from function a=6,result=360
+# KERNEL:  Display from function a=6,result=720
+# KERNEL:  Display from function a=6,result=720
+# KERNEL:  Display from module a=6,fact_result=720
+# KERNEL:  Display from function a=8,result=8
+# KERNEL:  Display from function a=8,result=56
+# KERNEL:  Display from function a=8,result=336
+# KERNEL:  Display from function a=8,result=1680
+# KERNEL:  Display from function a=8,result=6720
+# KERNEL:  Display from function a=8,result=20160
+# KERNEL:  Display from function a=8,result=40320
+# KERNEL:  Display from function a=8,result=40320
+# KERNEL:  Display from module a=8,fact_result=40320
+# KERNEL:  Display from function a=4,result=4
+# KERNEL:  Display from function a=4,result=12
+# KERNEL:  Display from function a=4,result=24
+# KERNEL:  Display from function a=4,result=24
+# KERNEL:  Display from module a=4,fact_result=24
+# KERNEL: Simulation has finished. There are no more test vectors to simulate.
+# VSIM: Simulation has finished.
