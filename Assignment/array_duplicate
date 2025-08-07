@@ -1,0 +1,30 @@
+module array_duplicate_tb();
+  int count;
+  int i, j;
+  int array[];
+  int n;
+
+  initial begin
+    array = new[6];
+    array = '{1, 3, 3, 3, 4, 4};
+    n=array.size();
+
+    $display("Original array is %p", array);
+
+    for (i = 0; i < n; i++) begin
+      count = 1;
+      for (j = i + 1; j < n; j++) begin
+        if (array[i] == 0)
+          continue;
+
+        if (array[i] == array[j]) begin
+          count++;
+          array[j] = 0;
+          // $display("Array is %0d", array[j]);
+        end
+      end
+      if (count > 1)
+        $display("Total number of duplicate elements found for value %0d is: %0d", array[i], count);
+    end
+  end
+endmodule
