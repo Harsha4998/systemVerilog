@@ -1,0 +1,15 @@
+# KERNEL: ASDB file was created in location /home/runner/dataset.asdb
+# KERNEL: Before sorting array1 is 52 53 54 51 55
+# KERNEL: Before sorting array2 is 31 32 33 34 35
+# KERNEL: Array1 elements at index [0] = 55
+# KERNEL: Array1 elements at index [1] = 54
+# KERNEL: Array1 elements at index [2] = 53
+# KERNEL: Array1 elements at index [3] = 52
+# KERNEL: Array1 elements at index [4] = 51
+# KERNEL: Array2 elements at index [0] = 35
+# KERNEL: Array2 elements at index [1] = 34
+# KERNEL: Array2 elements at index [2] = 33
+# KERNEL: Array2 elements at index [3] = 32
+# KERNEL: Array2 elements at index [4] = 31
+# KERNEL: Simulation has finished. There are no more test vectors to simulate.
+# VSIM: Simulation has finished.
