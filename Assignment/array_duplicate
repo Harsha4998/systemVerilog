@@ -28,3 +28,23 @@ module array_duplicate_tb();
     end
   end
 endmodule
+
+
+/////////////////////// Output ///////////////////////////////////////////////////////////////////////////////
+//# KERNEL: ASDB file was created in location /home/runner/dataset.asdb
+//# KERNEL: Original array is '{1, 3, 3, 3, 4, 4}
+//# KERNEL: Total number of duplicate elements found for value 3 is: 3
+//# KERNEL: Total number of duplicate elements found for value 4 is: 2
+//# KERNEL: Simulation has finished. There are no more test vectors to simulate.
+//# VSIM: Simulation has finished.
+
+
+
+
+
+
+
+
+
+
+
