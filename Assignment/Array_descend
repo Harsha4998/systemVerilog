@@ -1,0 +1,39 @@
+module array_descend_tb();
+  int array1[5] = '{52, 53, 54, 51, 55};
+  int array2[5] = '{31, 32, 33, 34, 35};
+  int array[10];
+  int i, j, temp;
+
+initial begin
+$display("The array1 before sorting in descending format %0p",array1);
+$display("The array2 before sorting in descending format %0p",array2);
+end
+
+  initial begin
+    for (i = 0; i <= 5; i = i + 1) begin
+      for (j = i + 1; j <= 5; j = j + 1) begin
+        if (array1[i] < array1[j]) begin
+          temp = array1[i];
+          array1[i] = array1[j];
+          array1[j] = temp;
+        end
+      end
+      // array_descend[5] = array1[i];
+      $display("Array1 elements at index [%0d] = %0d", i, array1[i]);
+    end
+  end
+
+  initial begin
+    for (i = 0; i <= 5; i = i + 1) begin
+      for (j = i + 1; j <= 5; j = j + 1) begin
+        if (array2[i] < array2[j]) begin
+          temp = array2[i];
+          array2[i] = array2[j];
+          array2[j] = temp;
+        end
+      end
+      // array_descend[5] = array2[i];
+      $display("Array2 elements at index [%0d] = %0d", i, array2[i]);
+    end
+  end
+endmodule
