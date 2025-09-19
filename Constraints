@@ -1,1 +1,43 @@
 
+class odd;
+  rand bit [7:0] even[8], odd[8], prime[8];
+  
+  constraint c_e { foreach (even[i]) (even[i] % 2 == 0); }   // for even number
+  constraint c_o { foreach (odd[i])  (odd[i] % 2 == 1); }   // for odd number
+  constraint c { foreach(all[i]) (all[i] > 10 && all[i] < 30); }
+
+  function void aprime();
+    int i, j, count;
+    for (i = 2; i < 255; i++) begin
+      count = 0;
+      for (j = 1; j <= i; j++) begin
+        if (i % j == 0) begin
+          count++;
+          // $display("%0d", count);
+        end
+      end
+      if (count == 2) begin
+        $display("Prime number is: %0d", i);
+      end
+    end
+  endfunction
+endclass
+
+
+module test_odd;
+  odd o1;
+  int i;
+
+  initial begin
+    o1 = new();
+    o1.aprime();
+    repeat (3) begin
+      o1.randomize();
+      // o1.aprime();
+      foreach (o1.even[i]) begin
+        $display("even[%0d] = %0p, odd[%0d] = %0p", i, o1.even[i], i, o1.odd[i]);
+      end
+      $display("\n");
+    end
+  end
+endmodule
